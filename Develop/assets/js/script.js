@@ -32,9 +32,9 @@ function getRandomColor() {
 function createTaskCard(task) {
     const card = $("<div>").addClass("task-card").attr("id", "task-" + task.id);
     const backgroundColor = getRandomColor(); // Get random background color for text
-    const title = $("<h3>").text(task.title).css("background-color", backgroundColor);
-    const description = $("<p>").text(task.description).css("background-color", backgroundColor);
-    const deadline = $("<p>").text("Deadline: " + task.deadline).css("background-color", backgroundColor);
+    const title = $("<div>").text(task.title).css("background-color", backgroundColor);
+    const description = $("<div>").text(task.description).css("background-color", backgroundColor);
+    const deadline = $("<div>").text("Deadline: " + task.deadline).css("background-color", backgroundColor);
     
     card.append(title, description, deadline);
     return card;
