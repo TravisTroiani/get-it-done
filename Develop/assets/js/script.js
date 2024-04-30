@@ -20,14 +20,36 @@ function generateTaskId() {
 //   return card;
 // }
 // Create a function to generate a random color
+// function getRandomColor() {
+//     const letters = "0123456789ABCDEF";
+//     let color = "#";
+//     for (let i = 0; i < 6; i++) {
+//       color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+//     while (randomColor === "#000000"); // Repeat if the color is black
+//     return randomColor;
+// //   } 
+// function getRandomColor() {
+//     const colors = ["#FF0000", "#ADD8E6", "#E6E6FA", "#FFFF00", "#FFA500"];
+//     return colors[Math.floor(Math.random() * colors.length)];
+//   }
+  
+let lastColor = ""; // Global variable to store the last color used
+
 function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  const colors = ["#FF0000", "#ADD8E6", "#E6E6FA", "#FFFF00", "#FFA500", "#FFCCFF", "#CCFFCC", "#E0E0FF", "#A8E3F1"]; 
+  
+  // Ensure the next color is different from the last one
+  let newColor = lastColor;
+  while (newColor === lastColor) {
+    newColor = colors[Math.floor(Math.random() * colors.length)];
   }
+
+  lastColor = newColor; // Update the last color used
+  return newColor;
+}
+
   // Create a function to create a task card with a background color for the text
 function createTaskCard(task) {
     const card = $("<div>").addClass("task-card").attr("id", "task-" + task.id);
@@ -35,8 +57,17 @@ function createTaskCard(task) {
     const title = $("<div>").text(task.title).css("background-color", backgroundColor);
     const description = $("<div>").text(task.description).css("background-color", backgroundColor);
     const deadline = $("<div>").text("Deadline: " + task.deadline).css("background-color", backgroundColor);
-    
-    card.append(title, description, deadline);
+    const deleteButton = $("<div>").text("Delete").addClass("btn btn-danger delete-task-btn").css("background-color", backgroundColor);
+
+     // Event listener for delete button
+  deleteButton.on("click", function () {
+    card.remove(); // Remove the task card from the DOM
+    const taskId = card.attr("id").split("-")[1];
+    taskList = taskList.filter(task => task.id != taskId);
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  });
+
+    card.append(title, description, deadline, deleteButton);
     return card;
   }
 //   // Create a function to create a task card with a square around it in a random color
