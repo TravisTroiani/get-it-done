@@ -16,6 +16,10 @@ Screenshot
 
 Website and Repsoitory URL
 
+Website: https://travistroiani.github.io/get-it-done/
+
+Repository Url: https://github.com/TravisTroiani/get-it-done
+
 
 Credits
 
