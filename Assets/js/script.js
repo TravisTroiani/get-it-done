@@ -66,6 +66,8 @@ function renderTaskList() {
   const inProgressLane = $("#in-progress-cards");
   inProgressLane.empty();
 
+  const doneLane = $("#done-cards");
+  doneLane.empty();
   // create variable for done lane
 
   for (let task of taskList) {
@@ -73,10 +75,10 @@ function renderTaskList() {
       todoLane.append(createTaskCard(task));
     } else if (task.status === "in-progress") {
       inProgressLane.append(createTaskCard(task));
-    } else {
-        
-    }
+    } else if (task.status === "done") 
+      doneLane.append(createTaskCard(task));
   }
+
 
   // ? Use JQuery UI to make task cards draggable
   $(".draggable").draggable({
